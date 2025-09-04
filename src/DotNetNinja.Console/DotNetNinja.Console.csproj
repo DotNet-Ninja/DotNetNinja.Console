@@ -3,6 +3,26 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
+    <UserSecretsId>9f4e12f9-a323-400c-b5b7-c463fa73fa2a</UserSecretsId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>DotNetNinja Console</Title>
+    <Description>A re-implementation (wrapper) of System.Console that implements an interface for abstraction</Description>
+    <Copyright>2025 DotNetNinja - All rights reserved</Copyright>
+    <PackageProjectUrl>https://github.com/DotNet-Ninja/DotNetNinja.Console</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DotNet-Ninja/DotNetNinja.Console</RepositoryUrl>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
