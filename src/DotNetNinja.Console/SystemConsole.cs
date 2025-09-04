@@ -1,6 +1,6 @@
 ﻿namespace DotNetNinja.Console
 {
-    public class SystemConsole
+    public class SystemConsole : IConsole
     {
         public void Write(string value)
         {
