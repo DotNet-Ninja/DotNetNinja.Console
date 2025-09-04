@@ -1,0 +1,48 @@
+# Publish workflow for DotNetNinja.Console
+
+name: Publish NuGet Package
+
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Bump-and-Tag-Semantic-Version
+    types:
+      - completed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4        
+        with:
+          fetch-depth: 0
+      
+      - name: 'Get Version Tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore DotnetNinja.Console.sln
+
+      - name: Build solution
+        run: dotnet build DotnetNinja.Console.sln --configuration Release --no-restore
+
+      - name: Pack NuGet package
+        run: dotnet pack src/DotNetNinja.Console/DotNetNinja.Console.csproj --configuration Release --no-build --output ./nupkg /p:PackageVersion=${{ steps.previoustag.outputs.tag }}
+
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add GitHub NuGet source
+        run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
