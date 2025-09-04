@@ -123,20 +123,6 @@
             Write(Colors.Warning, value);
         }
 
-        public void WarningLine(System.Exception exception, string value)
-        {
-            WriteLine(Colors.Warning, value);
-            WriteLine(Colors.Warning, exception.GetType().ToString());
-            WriteLine(Colors.Warning, exception.StackTrace);
-        }
-
-        public void WarningLine(System.Exception exception, string format, params object[] args)
-        {
-            WriteLine(Colors.Warning, string.Format(format, args));
-            WriteLine(Colors.Warning, exception.GetType().ToString());
-            WriteLine(Colors.Warning, exception.StackTrace);
-        }
-        
         public void Warning(string format, params object[] args)
         {
             Write(Colors.Warning, format, args);
@@ -150,6 +136,20 @@
         public void WarningLine(string format, params object[] args)
         {
             WriteLine(Colors.Warning, format, args);
+        }
+
+        public void WarningLine(System.Exception exception, string value)
+        {
+            WriteLine(Colors.Warning, value);
+            WriteLine(Colors.Warning, exception.GetType().ToString());
+            WriteLine(Colors.Warning, exception.StackTrace ?? "No stack trace available.");
+        }
+
+        public void WarningLine(System.Exception exception, string format, params object[] args)
+        {
+            WriteLine(Colors.Warning, string.Format(format, args));
+            WriteLine(Colors.Warning, exception.GetType().ToString());
+            WriteLine(Colors.Warning, exception.StackTrace ?? "No stack trace available.");
         }
 
         public void Error(string value)
@@ -176,14 +176,14 @@
         {
             WriteLine(Colors.Error, value);
             WriteLine(Colors.Error, exception.GetType().ToString());
-            WriteLine(Colors.Error, exception.StackTrace);
+            WriteLine(Colors.Error, exception.StackTrace ?? "No stack trace available.");
         }
 
         public void ErrorLine(System.Exception exception, string format, params object[] args)
         {
             WriteLine(Colors.Error, string.Format(format, args));
             WriteLine(Colors.Error, exception.GetType().ToString());
-            WriteLine(Colors.Error, exception.StackTrace);
+            WriteLine(Colors.Error, exception.StackTrace ?? "No stack trace available.");
         }
     }
 }
