@@ -40,11 +40,11 @@ jobs:
         run: dotnet pack src/DotNetNinja.Console/DotNetNinja.Console.csproj --configuration Release --no-build --output ./nupkg /p:PackageVersion=${{ steps.previoustag.outputs.tag }}
 
       - name: Add GitHub NuGet source
-        run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.PACKAGEPAT }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
 
       - name: Publish to GitHub Packages
-        run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.PACKAGEPAT}}
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_AUTH_TOKEN: ${{ secrets.PACKAGEPAT }}
 
 
