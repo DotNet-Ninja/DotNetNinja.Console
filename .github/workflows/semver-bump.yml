@@ -19,6 +19,6 @@ jobs:
         with:
           mode: bump
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          major: 'major-version'
-          minor: 'minor-version'
-          patch: 'patch-version'
+          major-label: 'major-version'
+          minor-label: 'minor-version'
+          patch-label: 'patch-version'

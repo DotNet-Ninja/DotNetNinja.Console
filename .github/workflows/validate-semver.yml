@@ -18,6 +18,6 @@ jobs:
           mode: validate
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           noop-labels: 'documentation' 
-          major: 'major-version'
-          minor: 'minor-version'
-          patch: 'patch-version'
+          major-label: 'major-version'
+          minor-label: 'minor-version'
+          patch-label: 'patch-version'
