@@ -42,6 +42,9 @@ jobs:
       - name: Add GitHub NuGet source
         run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.PACKAGEPAT }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
 
+      - name: Show output files
+        run: ls -la ./nupkg
+
       - name: Publish to GitHub Packages
         run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.PACKAGEPAT}}
         env:
